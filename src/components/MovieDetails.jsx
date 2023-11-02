@@ -10,10 +10,11 @@ import {
   Navbar,
   Dropdown,
 } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 const MovieDetails = () => {
   const params = useParams();
+  const newLocation = useNavigate();
 
   const [moviedata, setMovieData] = useState({});
   const [allComments, setAllComments] = useState([]);
@@ -35,7 +36,9 @@ const MovieDetails = () => {
       })
       .then((data) => {
         console.log(data);
-
+        if (data.Error === "Incorrect IMDb ID.") {
+          newLocation("/NotFound");
+        }
         setMovieData(data);
       })
       .catch((err) => {
@@ -139,7 +142,7 @@ const MovieDetails = () => {
     if (!allComments) {
       getMovieComments();
     }
-  }, [allComments]);
+  }, [params.movieID]);
 
   return (
     <>
