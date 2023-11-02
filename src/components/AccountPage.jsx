@@ -6,64 +6,6 @@ class AccountPage extends Component {
   render() {
     return (
       <div>
-        <Container fluid className="p-0 sticky-top">
-          <Row>
-            <Col className="p-0">
-              <Navbar expand="md" className="bg-black">
-                <Container fluid>
-                  <Navbar.Brand href="#">
-                    <img
-                      src="https://www.pxpng.com/public/uploads/preview/-11621687998ytrgnduxoh.png"
-                      alt="Logo"
-                      width="100"
-                      height="45"
-                      className="d-inline-block align-text-top"
-                    />
-                  </Navbar.Brand>
-
-                  <Navbar.Collapse className="align-items-center">
-                    <ul className="navbar-nav">
-                      <Link className="nav-item" as="li" to="/">
-                        <a className="nav-link active text-white">Home</a>
-                      </Link>
-                    </ul>
-                  </Navbar.Collapse>
-                  <Row className=" me-1">
-                    <Col className="text-white d-flex flex-row p-0 align-items-center">
-                      <p className="navFont text-white mb-0 me-2">KIDS</p>
-                      <i className="bi bi-bell-fill me-2"></i>
-                    </Col>
-                    <Col className="p-0">
-                      <Dropdown drop="start">
-                        <Dropdown.Menu>
-                          <Dropdown.Item eventKey="1">Account</Dropdown.Item>
-                          <Dropdown.Item eventKey="2" href="#">
-                            Language
-                          </Dropdown.Item>
-                          <Dropdown.Item eventKey="3">
-                            Notifications
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                        <Dropdown.Toggle
-                          as={"CustomToggle"}
-                          id="dropdown-custom-toggle"
-                        >
-                          <img
-                            src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
-                            alt="Logo"
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-text-top"
-                          />
-                        </Dropdown.Toggle>
-                      </Dropdown>
-                    </Col>
-                  </Row>
-                </Container>
-              </Navbar>
-            </Col>
-          </Row>
-        </Container>
         <main>
           <div className="container-fluid w-75">
             <h1>Account</h1>

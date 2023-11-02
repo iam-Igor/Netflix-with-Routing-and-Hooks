@@ -173,6 +173,7 @@ const MovieDetails = () => {
                 variant="danger"
                 onClick={() => {
                   getMovieComments();
+                  setareCommentsVisible(true);
                 }}
               >
                 Show comments for this film
@@ -180,82 +181,87 @@ const MovieDetails = () => {
             </div>
           </Card>
         </Col>
-
-        <Col className="d-flex flex-column">
-          <ListGroup className="list-group-flush">
-            <h4>Comments about this film:</h4>
-            {isLoading && (
-              <div className="d-flex justify-content-center">
-                <div className="spinner my-5">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
+        {areCommentsVisible && (
+          <Col className="d-flex flex-column">
+            <ListGroup className="list-group-flush">
+              <h4>
+                {allComments.length > 0
+                  ? "Comments about this film:"
+                  : "No comments yet for this movie"}
+              </h4>
+              {isLoading && (
+                <div className="d-flex justify-content-center">
+                  <div className="spinner my-5">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {allComments.map((comment, index) => {
-              return (
-                <ListGroup.Item
-                  key={index}
-                  className="d-flex justify-content-between"
-                >
-                  <div>
-                    <i className="bi bi-person-circle me-2"></i>
-                    {comment.comment}
-                  </div>
-                  <div
-                    onClick={() => {
-                      deleteComments(comment._id);
-                    }}
+              {allComments.map((comment, index) => {
+                return (
+                  <ListGroup.Item
+                    key={index}
+                    className="d-flex justify-content-between"
                   >
-                    <i className="bi bi-trash-fill"></i>
-                  </div>
-                </ListGroup.Item>
-              );
-            })}
-          </ListGroup>
-          <div>
-            <Form
-              className="mt-5"
-              onSubmit={(e) => {
-                addComments(e);
-              }}
-            >
-              <Form.Control
-                size="sm"
-                type="text"
-                placeholder="Comment here"
-                value={formData.comment}
-                onChange={(e) =>
-                  setFormData({ ...formData, comment: e.target.value })
-                }
-              />
-              <Form.Select
-                aria-label="ratings"
-                size="sm"
-                value={formData.rate}
-                onChange={(e) =>
-                  setFormData({ ...formData, rate: e.target.value })
-                }
+                    <div>
+                      <i className="bi bi-person-circle me-2"></i>
+                      {comment.comment}
+                    </div>
+                    <div
+                      onClick={() => {
+                        deleteComments(comment._id);
+                      }}
+                    >
+                      <i className="bi bi-trash-fill"></i>
+                    </div>
+                  </ListGroup.Item>
+                );
+              })}
+            </ListGroup>
+            <div>
+              <Form
+                className="mt-5"
+                onSubmit={(e) => {
+                  addComments(e);
+                }}
               >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Select>
-              <Button
-                variant="warning"
-                className="rounded-pill mt-2 fs-6"
-                type="submit"
-              >
-                Add comment
-              </Button>
-            </Form>
-          </div>
-        </Col>
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Comment here"
+                  value={formData.comment}
+                  onChange={(e) =>
+                    setFormData({ ...formData, comment: e.target.value })
+                  }
+                />
+                <Form.Select
+                  aria-label="ratings"
+                  size="sm"
+                  value={formData.rate}
+                  onChange={(e) =>
+                    setFormData({ ...formData, rate: e.target.value })
+                  }
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </Form.Select>
+                <Button
+                  variant="warning"
+                  className="rounded-pill mt-2 fs-6"
+                  type="submit"
+                >
+                  Add comment
+                </Button>
+              </Form>
+            </div>
+          </Col>
+        )}
       </Row>
     </>
   );

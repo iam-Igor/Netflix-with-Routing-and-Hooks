@@ -46,7 +46,6 @@ class MainContent extends Component {
         }
       })
       .then((data) => {
-        console.log(data);
         this.setState({
           // STATE NAME ASSUMERA IL VALORE DESIDERATO ATTRAVERSO I PARAMETRI DELLA SUA FUNZIONE PADRE
           [StateName]: data.Search.map((movie) => ({
