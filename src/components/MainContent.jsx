@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Container, Spinner, Alert } from "react-bootstrap";
 import Gallery from "./Gallery";
-import MyFooter from "./MyFooter";
 
 class MainContent extends Component {
   // INIZIALIZZO TANTI ARRAY VUOTI QUANTE SONO LE ROW DA VISUALIZZARE NEL MAIN
@@ -15,6 +14,7 @@ class MainContent extends Component {
     isLoading: true,
     isThereAnError: false,
     errorToShow: "",
+    searchIndex: this.props.search,
   };
 
   //   USO I PARAMETRI DELLA FUNZIONE COME ENDPOINT DELLA URL E NOME DELL'ARRAY DA MAPPARE NEL .THEN

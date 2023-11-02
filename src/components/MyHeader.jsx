@@ -1,13 +1,18 @@
 import { Container, Row, Col } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useLocation } from "react-router-dom";
 
 const Myheader = () => {
+  const location = useLocation();
+
   return (
     <header>
       <Container fluid className="bg-black text-white pb-2">
         <Row className="align-items-center">
           <Col xs={4} md={2}>
-            <h1 className="fs-5">TV Shows</h1>
+            <h1 className="fs-5">
+              {location.pathname === "/" ? "Movies" : "Tv Shows"}
+            </h1>
           </Col>
           <Col className="col-2 offset-md-0">
             <Dropdown data-bs-theme="dark">
