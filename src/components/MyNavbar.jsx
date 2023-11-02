@@ -32,10 +32,10 @@ class MyNavbar extends Component {
                   <Navbar.Collapse className="align-items-center">
                     <ul className="navbar-nav">
                       <Link className="nav-item" as="li" to="/">
-                        Home
+                        <a className="nav-link active text-white">Home</a>
                       </Link>
                       <Link className="nav-item" as="li" to="/TvShows">
-                        Tv Shows
+                        <a className="nav-link active text-white">Tv Shows</a>
                       </Link>
                       <li className="nav-item">
                         <a className="nav-link text-white" href="#">
@@ -95,7 +95,7 @@ class MyNavbar extends Component {
                           </Dropdown.Item>
                         </Dropdown.Menu>
                         <Dropdown.Toggle
-                          as={"CustomToggle"}
+                          as={"custom-toggle"}
                           id="dropdown-custom-toggle"
                         >
                           <img
