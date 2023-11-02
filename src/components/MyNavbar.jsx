@@ -31,20 +31,12 @@ class MyNavbar extends Component {
 
                   <Navbar.Collapse className="align-items-center">
                     <ul className="navbar-nav">
-                      <li className="nav-item">
-                        <a
-                          className="nav-link active text-white"
-                          aria-current="page"
-                          href="#"
-                        >
-                          Home
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link text-white" href="#">
-                          Tv Shows
-                        </a>
-                      </li>
+                      <Link className="nav-item" as="li" to="/">
+                        Home
+                      </Link>
+                      <Link className="nav-item" as="li" to="/TvShows">
+                        Tv Shows
+                      </Link>
                       <li className="nav-item">
                         <a className="nav-link text-white" href="#">
                           Movies

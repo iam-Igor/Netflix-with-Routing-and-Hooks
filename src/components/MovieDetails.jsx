@@ -21,6 +21,8 @@ const MovieDetails = () => {
     comment: "",
     rate: "1",
   });
+  const [areCommentsVisible, setareCommentsVisible] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   const getMovieDetails = () => {
     fetch(`http://www.omdbapi.com/?apikey=556b8878&i=` + params.movieID)
@@ -58,12 +60,21 @@ const MovieDetails = () => {
           throw new Error();
         }
       })
+      .then(setisLoading(true))
       .then((comments) => {
-        setAllComments([comments]);
+        setAllComments(comments);
+        setareCommentsVisible(!areCommentsVisible);
         console.log(comments);
+        setTimeout(() => {
+          setisLoading(false);
+        }, 500);
+        if (comments.length < 0) {
+          setisLoading(false);
+        }
       })
       .catch((err) => {
         console.log(err);
+        setisLoading(false);
       });
   };
 
@@ -101,15 +112,40 @@ const MovieDetails = () => {
       });
   };
 
+  const deleteComments = (param) => {
+    fetch("https://striveschool-api.herokuapp.com/api/comments/" + param, {
+      method: "DELETE",
+
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQzOTI5YWI0MDZiZTAwMTRiN2I3MjQiLCJpYXQiOjE2OTg5MjcyNTksImV4cCI6MTcwMDEzNjg1OX0.T4mM853gVZRuQpPukusMM97JZA-K-twAmm_Y6xf4qVA",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log("commento eliminato");
+          getMovieComments();
+        } else {
+          throw new Error();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getMovieDetails();
-  }, []);
+    if (!allComments) {
+      getMovieComments();
+    }
+  }, [allComments]);
 
   return (
     <>
       <Navbar expand="md" className="bg-black">
         <Container fluid>
-          <Navbar.Brand href="#">
+          <Navbar.Brand>
             <img
               src="https://www.pxpng.com/public/uploads/preview/-11621687998ytrgnduxoh.png"
               alt="Logo"
@@ -121,15 +157,9 @@ const MovieDetails = () => {
 
           <Navbar.Collapse className="align-items-center">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <a
-                  className="nav-link active text-white"
-                  aria-current="page"
-                  href="#"
-                >
-                  Home
-                </a>
-              </li>
+              <Link className="nav-item" as="li" to="/">
+                <a className="nav-link active text-white">Home</a>
+              </Link>
               <li className="nav-item">
                 <a className="nav-link text-white" href="#">
                   Tv Shows
@@ -171,7 +201,7 @@ const MovieDetails = () => {
                   <Dropdown.Item eventKey="3">Notifications</Dropdown.Item>
                 </Dropdown.Menu>
                 <Dropdown.Toggle
-                  as={"CustomToggle"}
+                  as={"custom-toggle"}
                   id="dropdown-custom-toggle"
                 >
                   <img
@@ -210,18 +240,50 @@ const MovieDetails = () => {
               </Card.Text>
             </Card.Body>
             <div className="d-flex justify-content-start ms-2">
-              <Button variant="danger" onClick={getMovieComments}>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  getMovieComments();
+                }}
+              >
                 Show comments for this film
               </Button>
             </div>
           </Card>
         </Col>
+
         <Col className="d-flex flex-column">
           <ListGroup className="list-group-flush">
             <h4>Comments about this film:</h4>
+            {isLoading && (
+              <div className="d-flex justify-content-center">
+                <div className="spinner my-5">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            )}
+
             {allComments.map((comment, index) => {
               return (
-                <ListGroup.Item key={index}>{comment.comment}</ListGroup.Item>
+                <ListGroup.Item
+                  key={index}
+                  className="d-flex justify-content-between"
+                >
+                  <div>
+                    <i className="bi bi-person-circle me-2"></i>
+                    {comment.comment}
+                  </div>
+                  <div
+                    onClick={() => {
+                      deleteComments(comment._id);
+                    }}
+                  >
+                    <i className="bi bi-trash-fill"></i>
+                  </div>
+                </ListGroup.Item>
               );
             })}
           </ListGroup>
