@@ -95,7 +95,9 @@ body {
 a {
   text-decoration: none;
 }
-
+.detail-card {
+  box-shadow: -5px 6px 29px 3px rgba(0, 0, 0, 0.3);
+}
 .detail-card img {
   height: 40vh;
   object-fit: cover;

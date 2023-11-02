@@ -289,6 +289,7 @@ const MovieDetails = () => {
           </ListGroup>
           <div>
             <Form
+              className="mt-5"
               onSubmit={(e) => {
                 addComments(e);
               }}
@@ -310,7 +311,6 @@ const MovieDetails = () => {
                   setFormData({ ...formData, rate: e.target.value })
                 }
               >
-                <option>Rate the movie</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
